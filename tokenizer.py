@@ -12,12 +12,12 @@ def tokenize(code: str, path: str) -> None:
     for line in lines:
         tokens.append (
             re.findall (
-                r"\_\$|[a-zA-Z_][a-zA-Z0-9_]*|0x[0-9a-fA-F]+|\d+|[.,:;!\"'()\[\]]",
+                r"[0-9]|\_\$|[a-zA-Z_][a-zA-Z0-9_]*|0x[0-9a-fA-F]+|\d+|[.,:;!\"'()\[\]/*+=-]",
                 line
             )
         )
     
     tokens = [token for token in tokens if token]
     
-    try: execute.assign(tokens)
+    try: execute.init(tokens)
     except ValueError as error: print(error)
